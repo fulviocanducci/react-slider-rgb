@@ -1,23 +1,46 @@
-import React from "react";
+import React, { useState } from "react";
 
-import Ranger, { useRanger } from "./components/Ranger";
 import Element from "./components/Element";
 import Barra from "./components/Barra";
 import Container from "./components/Container";
+import Items from "./components/Items";
 
 function App() {
-  const [color, onChange] = useRanger();
+  const min = 0;
+  const max = 255;
+  const [color, setColor] = useState({ r: 0, g: 0, b: 0 });
+  const handleColor = (id, value) => {
+    setColor({ ...color, [id]: value });
+  };
   return (
     <Container>
       <pre>{JSON.stringify(color)}</pre>
       <Element>
-        <Ranger id="r" min={0} max={255} to={color.r} onChange={onChange} />
+        <Items
+          min={min}
+          max={max}
+          color={color.r}
+          handleColor={handleColor}
+          id="r"
+        />
       </Element>
       <Element>
-        <Ranger id="g" min={0} max={255} to={color.g} onChange={onChange} />
+        <Items
+          min={min}
+          max={max}
+          color={color.g}
+          handleColor={handleColor}
+          id="g"
+        />
       </Element>
       <Element>
-        <Ranger id="b" min={0} max={255} to={color.b} onChange={onChange} />
+        <Items
+          min={min}
+          max={max}
+          color={color.b}
+          handleColor={handleColor}
+          id="b"
+        />
       </Element>
       <Barra r={color.r} g={color.g} b={color.b} />
     </Container>
